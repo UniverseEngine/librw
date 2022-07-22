@@ -442,10 +442,10 @@ inline void memLittle32(void *data, uint32 size) { memLittle32_func(data, size);
 inline void memLittle16(void *data, uint32 size) { memLittle16_func(data, size); }
 #define ASSERTLITTLE assert(0 && "unsafe code on big-endian")
 #else
-inline void memNative32(void */* data */, uint32 /* size */) { }
-inline void memNative16(void */* data */, uint32 /* size */) { }
-inline void memLittle32(void */* data */, uint32 /* size */) { }
-inline void memLittle16(void */* data */, uint32 /* size */) { }
+inline void memNative32(void * /* data */, uint32 /* size */) { }
+inline void memNative16(void * /* data */, uint32 /* size */) { }
+inline void memLittle32(void * /* data */, uint32 /* size */) { }
+inline void memLittle16(void * /* data */, uint32 /* size */) { }
 #define ASSERTLITTLE
 #endif
 

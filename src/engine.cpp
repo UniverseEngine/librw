@@ -460,7 +460,7 @@ void showRaster(Raster*,uint32) { }
 void   setRenderState(int32, void*) { }
 void  *getRenderState(int32) { return 0; }
 
-bool32 rasterRenderFast(Raster */* raster */, int32 /* x */, int32 /* y */) { return 0; }
+bool32 rasterRenderFast(Raster* /* raster */, int32 /* x */, int32 /* y */) { return 0; }
 
 void im2DRenderLine(void*, int32, int32, int32) { }
 void im2DRenderTriangle(void*, int32, int32, int32, int32) { }
