@@ -28,7 +28,13 @@ main(int argc, char *argv[])
 
 	ARGBEGIN{
 	case 'v':
+	{
+#ifdef _MSC_VER	
+		sscanf_s(EARGF(usage()), "%x", &rw::version);
+#else
 		sscanf(EARGF(usage()), "%x", &rw::version);
+#endif
+	}
 		break;
 	default:
 		usage();
