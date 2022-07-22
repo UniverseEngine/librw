@@ -371,7 +371,7 @@ assert(t >= in1->time && t <= in2->time);
 }
 
 static void*
-hanimOpen(void *object, int32 offset, int32 size)
+hanimOpen(void *object, int32 /* offset */, int32 /* size */)
 {
 	AnimInterpolatorInfo *info = rwNewT(AnimInterpolatorInfo, 1, MEMDUR_GLOBAL | ID_HANIM);
 	info->id = 1;
@@ -391,7 +391,7 @@ hanimOpen(void *object, int32 offset, int32 size)
 }
 
 static void*
-hanimClose(void *object, int32 offset, int32 size)
+hanimClose(void *object, int32 /* offset */, int32 /* size */)
 {
 	AnimInterpolatorInfo::unregisterInterp(AnimInterpolatorInfo::find(1));
 	return object;

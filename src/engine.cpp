@@ -187,7 +187,7 @@ bool32
 Engine::init(MemoryFunctions *memfuncs)
 {
 	if(engine || Engine::state != Dead){
-		RWERROR((ERR_ENGINEINIT));
+		RWERROR((ERR_ENGINEINIT, 0));
 		return 0;
 	}
 
@@ -246,7 +246,7 @@ bool32
 Engine::open(EngineOpenParams *p)
 {
 	if(engine || Engine::state != Initialized){
-		RWERROR((ERR_ENGINEOPEN));
+		RWERROR((ERR_ENGINEOPEN, 0));
 		return 0;
 	}
 
@@ -304,7 +304,7 @@ bool32
 Engine::start(void)
 {
 	if(engine == nil || Engine::state != Opened){
-		RWERROR((ERR_ENGINESTART));
+		RWERROR((ERR_ENGINESTART, 0));
 		return 0;
 	}
 
@@ -329,7 +329,7 @@ void
 Engine::term(void)
 {
 	if(engine || Engine::state != Initialized){
-		RWERROR((ERR_GENERAL));
+		RWERROR((ERR_GENERAL, 0));
 		return;
 	}
 
@@ -346,7 +346,7 @@ void
 Engine::close(void)
 {
 	if(engine == nil || Engine::state != Opened){
-		RWERROR((ERR_GENERAL));
+		RWERROR((ERR_GENERAL, 0));
 		return;
 	}
 
@@ -363,7 +363,7 @@ void
 Engine::stop(void)
 {
 	if(engine == nil || Engine::state != Started){
-		RWERROR((ERR_GENERAL));
+		RWERROR((ERR_GENERAL, 0));
 		return;
 	}
 
@@ -460,7 +460,7 @@ void showRaster(Raster*,uint32) { }
 void   setRenderState(int32, void*) { }
 void  *getRenderState(int32) { return 0; }
 
-bool32 rasterRenderFast(Raster *raster, int32 x, int32 y) { return 0; }
+bool32 rasterRenderFast(Raster */* raster */, int32 /* x */, int32 /* y */) { return 0; }
 
 void im2DRenderLine(void*, int32, int32, int32) { }
 void im2DRenderTriangle(void*, int32, int32, int32, int32) { }
