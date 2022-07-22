@@ -3,12 +3,16 @@ if(DEFINED PROJECT_NAME)
     set(librw_MAINPROJECT OFF)
 endif()
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 cmake_minimum_required(VERSION 3.8)
 project(librw
     VERSION 0.0.1
     LANGUAGES C CXX
 )
 set(librw_AUTHOR aap)
+
+set(CXX_STANDARD 20)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
@@ -36,6 +40,22 @@ message(STATUS "LIBRW_PLATFORM = ${LIBRW_PLATFORM} (choices=${LIBRW_PLATFORMS})"
 set("LIBRW_PLATFORM_${LIBRW_PLATFORM}" ON)
 if(NOT LIBRW_PLATFORM IN_LIST LIBRW_PLATFORMS)
     message(FATAL_ERROR "Illegal LIBRW_PLATFORM=${LIBRW_PLATFORM}")
+endif()
+
+if(LIBRW_PLATFORM_NULL)
+    set(platform "-null")
+elseif(LIBRW_PLATFORM_PS2)
+    set(platform "-ps2")
+elseif(LIBRW_PLATFORM_GL3)
+    if(LIBRW_GL3_GFXLIB STREQUAL "GLFW")
+        set(platform "-gl3-glfw")
+    else()
+        set(platform "-gl3-sdl2")
+        set(RW_GL3 1)
+    endif()
+elseif(LIBRW_PLATFORM_D3D9)
+    set(platform "-d3d9")
+    set(RW_GL3 1)
 endif()
 
 set(LIBRW_GL3_GFXLIBS "GLFW" "SDL2")

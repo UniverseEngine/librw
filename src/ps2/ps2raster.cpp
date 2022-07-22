@@ -1820,7 +1820,7 @@ rasterNumLevels(Raster *raster)
 }
 
 static void*
-createNativeRaster(void *object, int32 offset, int32)
+createNativeRaster(void *object, int32 /*offset*/, int32)
 {
 	Ps2Raster *raster = GETPS2RASTEREXT(object);
 	raster->tex0 = 0;
@@ -1841,7 +1841,7 @@ createNativeRaster(void *object, int32 offset, int32)
 }
 
 static void*
-destroyNativeRaster(void *object, int32 offset, int32)
+destroyNativeRaster(void *object, int32 /*offset*/, int32)
 {
 	Ps2Raster *raster = GETPS2RASTEREXT(object);
 	freealign(raster->data);
@@ -1849,7 +1849,7 @@ destroyNativeRaster(void *object, int32 offset, int32)
 }
 
 static void*
-copyNativeRaster(void *dst, void *src, int32 offset, int32)
+copyNativeRaster(void *dst, void *src, int32 /*offset*/, int32)
 {
 	Ps2Raster *dstraster = GETPS2RASTEREXT(dst);
 	Ps2Raster *srcraster = GETPS2RASTEREXT(src);
@@ -1858,7 +1858,7 @@ copyNativeRaster(void *dst, void *src, int32 offset, int32)
 }
 
 static Stream*
-readMipmap(Stream *stream, int32, void *object, int32 offset, int32)
+readMipmap(Stream *stream, int32, void *object, int32 /*offset*/, int32)
 {
 	uint16 val = stream->readI32();
 	Texture *tex = (Texture*)object;
@@ -1870,7 +1870,7 @@ readMipmap(Stream *stream, int32, void *object, int32 offset, int32)
 }
 
 static Stream*
-writeMipmap(Stream *stream, int32, void *object, int32 offset, int32)
+writeMipmap(Stream *stream, int32, void *object, int32 /*offset*/, int32)
 {
 	Texture *tex = (Texture*)object;
 	if(tex->raster){
@@ -1904,7 +1904,7 @@ registerNativeRaster(void)
 void
 printTEX0(uint64 tex0)
 {
-	printf("%016lX ", tex0);
+	printf("%016llX ", tex0);
 	uint32 tbp0 = tex0 & 0x3FFF; tex0 >>= 14;
 	uint32 tbw = tex0 & 0x3F; tex0 >>= 6;
 	uint32 psm = tex0 & 0x3F; tex0 >>= 6;
@@ -1924,7 +1924,7 @@ printTEX0(uint64 tex0)
 void
 printTEX1(uint64 tex1)
 {
-	printf("%016lX ", tex1);
+	printf("%016llX ", tex1);
 	uint32 lcm = tex1 & 0x1; tex1 >>= 2;
 	uint32 mxl = tex1 & 0x7; tex1 >>= 3;
 	uint32 mmag = tex1 & 0x1; tex1 >>= 1;

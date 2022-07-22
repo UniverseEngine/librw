@@ -41,7 +41,13 @@ dbgsprint(uint32 code, ...)
 	if(code & 0x80000000)
 		code &= ~0x80000000;
 	va_start(ap, code);
+
+#ifdef _MSC_VER
+	vsprintf_s(strbuf, errstrs[code], ap);
+#else
 	vsprintf(strbuf, errstrs[code], ap);
+#endif
+	
 	va_end(ap);
 	return strbuf;
 }

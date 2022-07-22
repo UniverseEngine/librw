@@ -420,9 +420,9 @@ rasterCreate(Raster *raster)
 		ret = rasterCreateCamera(raster);
 		break;
 #endif
-
+	case 0: // HACK: Warning C4065: switch statement contains 'default' but no 'case' labels
 	default:
-		RWERROR((ERR_INVRASTER));
+		RWERROR((ERR_INVRASTER, 0));
 		return nil;
 	}
 
@@ -779,7 +779,7 @@ rasterToImage(Raster *raster)
 		return nil;
 	}
 		
-	uint8 *in, *out;
+	// uint8 *in, *out; // Unused
 	image = Image::create(raster->width, raster->height, depth);
 	image->allocate();
 
@@ -1000,6 +1000,7 @@ writeNativeTexture(Texture *tex, Stream *stream)
 			compression = 5;
 			break;
 #endif
+		case 0: // HACK: Warning C4065: switch statement contains 'default' but no 'case' labels
 		default:
 			assert(0 && "unknown compression");
 		}

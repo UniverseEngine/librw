@@ -64,7 +64,7 @@ textureOpen(void *object, int32 offset, int32 size)
 	return object;
 }
 static void*
-textureClose(void *object, int32 offset, int32 size)
+textureClose(void *object, int32 /* offset */, int32 /*size*/)
 {
 	FORLIST(lnk, TEXTUREGLOBAL(texDicts))
 		TexDictionary::fromLink(lnk)->destroy();
@@ -319,9 +319,21 @@ defaultReadCB(const char *name, const char *mask)
 	img = Image::readMasked(name, mask);
 	if(img){
 		tex = Texture::create(Raster::createFromImage(img));
-		strncpy(tex->name, name, 32);
+
+#ifdef _MSC_VER
+			strncpy_s(tex->name, name, 32);
+#else
+			strncpy(tex->name, name, 32);
+#endif
+
 		if(mask)
-			strncpy(tex->mask, mask, 32);
+		{
+#ifdef _MSC_VER
+			strncpy_s(tex->mask, mask, 32);
+#else
+			strncpy(tex->mask, name, 32);
+#endif
+		}
 		img->destroy();
 		return tex;
 	}else
@@ -348,9 +360,21 @@ Texture::read(const char *name, const char *mask)
 		tex = Texture::create(nil);
 		if(tex == nil)
 			return nil;
-		strncpy(tex->name, name, 32);
+
+#ifdef _MSC_VER
+			strncpy_s(tex->name, name, 32);
+#else
+			strncpy(tex->name, name, 32);
+#endif
+
 		if(mask)
+		{
+#ifdef _MSC_VER
+			strncpy_s(tex->mask, mask, 32);
+#else
 			strncpy(tex->mask, mask, 32);
+#endif
+		}
 		raster = Raster::create(0, 0, 0, Raster::DONTALLOCATE);
 		tex->raster = raster;
 	}
@@ -435,13 +459,25 @@ Texture::streamWrite(Stream *stream)
 	stream->writeU32(filterAddressing);
 
 	memset(buf, 0, 36);
+
+#ifdef _MSC_VER
+	strncpy_s(buf, this->name, 32);
+#else
 	strncpy(buf, this->name, 32);
+#endif
+
 	size = strlen(buf)+4 & ~3;
 	writeChunkHeader(stream, ID_STRING, size);
 	stream->write8(buf, size);
 
 	memset(buf, 0, 36);
+
+#ifdef _MSC_VER
+	strncpy_s(buf, this->mask, 32);
+#else
 	strncpy(buf, this->mask, 32);
+#endif
+
 	size = strlen(buf)+4 & ~3;
 	writeChunkHeader(stream, ID_STRING, size);
 	stream->write8(buf, size);
@@ -524,35 +560,35 @@ Texture::streamGetSizeNative(void)
 int32 anisotOffset;
 
 static void*
-createAnisot(void *object, int32 offset, int32)
+createAnisot(void *object, int32 /* offset */, int32 /* size */)
 {
 	*GETANISOTROPYEXT(object) = 1;
 	return object;
 }
 
 static void*
-copyAnisot(void *dst, void *src, int32 offset, int32)
+copyAnisot(void *dst, void *src, int32 /* offset */, int32 /* size */)
 {
 	*GETANISOTROPYEXT(dst) = *GETANISOTROPYEXT(src);
 	return dst;
 }
 
 static Stream*
-readAnisot(Stream *stream, int32, void *object, int32 offset, int32)
+readAnisot(Stream *stream, int32, void *object, int32 /* offset */, int32 /* size */)
 {
 	*GETANISOTROPYEXT(object) = stream->readI32();
 	return stream;
 }
 
 static Stream*
-writeAnisot(Stream *stream, int32, void *object, int32 offset, int32)
+writeAnisot(Stream *stream, int32, void *object, int32 /* offset */, int32 /* size */)
 {
 	stream->writeI32(*GETANISOTROPYEXT(object));
 	return stream;
 }
 
 static int32
-getSizeAnisot(void *object, int32 offset, int32)
+getSizeAnisot(void *object, int32 /* offset */, int32 /* size */)
 {
 	if(*GETANISOTROPYEXT(object) == 1)
 		return 0;

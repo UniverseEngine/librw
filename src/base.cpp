@@ -648,7 +648,7 @@ Matrix::identityError(void)
 }
 
 void
-correctPathCase(char *filename)
+correctPathCase(char * /*filename*/)
 {
 #ifdef __unix__
 	DIR *direct;

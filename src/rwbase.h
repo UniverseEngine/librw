@@ -442,10 +442,10 @@ inline void memLittle32(void *data, uint32 size) { memLittle32_func(data, size);
 inline void memLittle16(void *data, uint32 size) { memLittle16_func(data, size); }
 #define ASSERTLITTLE assert(0 && "unsafe code on big-endian")
 #else
-inline void memNative32(void *data, uint32 size) { }
-inline void memNative16(void *data, uint32 size) { }
-inline void memLittle32(void *data, uint32 size) { }
-inline void memLittle16(void *data, uint32 size) { }
+inline void memNative32(void */* data */, uint32 /* size */) { }
+inline void memNative16(void */* data */, uint32 /* size */) { }
+inline void memLittle32(void */* data */, uint32 /* size */) { }
+inline void memLittle16(void */* data */, uint32 /* size */) { }
 #define ASSERTLITTLE
 #endif
 
@@ -502,7 +502,7 @@ public:
 	StreamMemory *open(uint8 *data, uint32 length, uint32 capacity = 0);
 	uint32 getLength(void);
 
-	enum {
+	enum : uint32 {
 		S_EOF = 0xFFFFFFFF
 	};
 };
@@ -642,7 +642,7 @@ enum CoreModuleID
 
 #define ECODE(c, s) c
 
-enum Errors
+enum Errors : uint32
 {
 	ERR_NONE = 0x80000000,
 #include "base.err"

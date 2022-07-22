@@ -494,6 +494,7 @@ Geometry::generateTriangles(int8 *adc)
 	}
 }
 
+/* Unused warning: Commented out to avoid compiler warning.
 static void
 dumpMesh(Mesh *m)
 {
@@ -509,6 +510,7 @@ dumpMesh(Mesh *m)
 				m->indices[i+1],
 				m->indices[i+2]);
 }
+*/
 
 void
 Geometry::buildMeshes(void)

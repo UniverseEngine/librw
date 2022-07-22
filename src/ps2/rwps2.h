@@ -25,8 +25,8 @@ struct Im2DVertex
 	void setRecipCameraZ(float32 recipz) { this->q = recipz; }
 	void setColor(uint8 r, uint8 g, uint8 b, uint8 a) {
 		this->r = r; this->g = g; this->b = b; this->a = a; }
-	void setU(float32 u, float recipz) { this->u = u; }
-	void setV(float32 v, float recipz) { this->v = v; }
+	void setU(float32 u, float /*recipz*/) { this->u = u; }
+	void setV(float32 v, float /*recipz*/) { this->v = v; }
 
 	float getScreenX(void) { return this->x; }
 	float getScreenY(void) { return this->y; }

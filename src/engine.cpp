@@ -38,8 +38,8 @@ PluginList Driver::s_plglist[NUM_PLATFORMS];
 
 const char *allocLocation;
 
-void *malloc_h(size_t sz, uint32 hint) { if(sz == 0) return nil; return malloc(sz); }
-void *realloc_h(void *p, size_t sz, uint32 hint) { return realloc(p, sz); }
+void *malloc_h(size_t sz, uint32 /*hint*/) { if(sz == 0) return nil; return malloc(sz); }
+void *realloc_h(void *p, size_t sz, uint32 /*hint*/) { return realloc(p, sz); }
 
 struct MemoryBlock
 {

@@ -111,7 +111,7 @@ target_compile_definitions(librw
         "RW_${LIBRW_PLATFORM}"
 )
 
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+if(NOT WIN32 AND (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang"))
     target_link_libraries(librw
         PRIVATE
             m
@@ -149,6 +149,7 @@ set_target_properties(librw
 )
 
 if(LIBRW_PLATFORM_GL3)
+    target_compile_definitions(librw PUBLIC RW_GL3)
     if (LIBRW_GL3_GFXLIB STREQUAL "GLFW")
         find_package(glfw3 REQUIRED)
         target_link_libraries(librw
@@ -190,6 +191,7 @@ elseif(LIBRW_PLATFORM_D3D9)
             d3d9
             xinput
     )
+    target_compile_definitions(librw PUBLIC RW_D3D9)
 endif()
 
 if(LIBRW_INSTALL)
